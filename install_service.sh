@@ -78,6 +78,10 @@ sudo systemctl daemon-reload
 echo "Enabling service to start on boot..."
 sudo systemctl enable pi-stock-ticker.service
 
+# Install libopenblas-dev as a workaround for numpy issues on Raspberry Pi
+echo "Installing libopenblas-dev (numpy dependency fix)..."
+sudo apt-get install -y libopenblas-dev
+
 echo ""
 echo "Installation complete!"
 echo ""

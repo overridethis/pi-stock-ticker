@@ -9,6 +9,10 @@ dependencies = [
     "yfinance",
     "pytz",
     "pandas",
+    "spidev",
+    "RPi.GPIO",
+    "gpiozero",
+    "lgpio",
 ]
 
 [build-system]
