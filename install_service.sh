@@ -11,14 +11,32 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 USER=$(whoami)
 VENV_PYTHON="$PROJECT_DIR/venv/bin/python3"
 
-# Check if virtual environment exists
+# Check if virtual environment exists, create if not
 if [ ! -f "$VENV_PYTHON" ]; then
-    echo "ERROR: Virtual environment not found at $PROJECT_DIR/venv"
-    echo "Please create a virtual environment first:"
-    echo "  python3 -m venv venv"
-    echo "  source venv/bin/activate"
-    echo "  pip3 install -e ."
-    exit 1
+    echo "Virtual environment not found. Creating one now..."
+    python3 -m venv "$PROJECT_DIR/venv"
+
+    if [ $? -ne 0 ]; then
+        echo "ERROR: Failed to create virtual environment"
+        echo "Make sure python3-venv is installed:"
+        echo "  sudo apt-get install python3-venv"
+        exit 1
+    fi
+
+    echo "Virtual environment created successfully."
+    echo "Installing project dependencies..."
+
+    "$PROJECT_DIR/venv/bin/pip3" install --upgrade pip
+    "$PROJECT_DIR/venv/bin/pip3" install -e "$PROJECT_DIR"
+
+    if [ $? -ne 0 ]; then
+        echo "ERROR: Failed to install dependencies"
+        exit 1
+    fi
+
+    echo "Dependencies installed successfully."
+else
+    echo "Virtual environment found at $PROJECT_DIR/venv"
 fi
 
 # Create systemd service file

@@ -39,14 +39,23 @@ pi-stock-ticker/
 
 ## Installation
 
-### 1. Enable SPI on Raspberry Pi
+### 1. Install Git (if not already installed)
+
+Git is required to clone repositories. Install it on your Raspberry Pi:
+
+```bash
+sudo apt-get update
+sudo apt-get install git -y
+```
+
+### 2. Enable SPI on Raspberry Pi
 
 ```bash
 sudo raspi-config
 # Navigate to: Interfacing Options -> SPI -> Enable
 ```
 
-### 2. Install Waveshare e-Paper Library
+### 3. Install Waveshare e-Paper Library
 
 Follow the instructions at: https://github.com/waveshare/e-Paper
 
@@ -57,7 +66,7 @@ cd e-Paper/RaspberryPi_JetsonNano/python
 sudo python3 setup.py install
 ```
 
-### 3. Clone This Repository
+### 4. Clone This Repository
 
 ```bash
 cd ~
@@ -65,7 +74,7 @@ git clone <your-repo-url> pi-stock-ticker
 cd pi-stock-ticker
 ```
 
-### 4. Set Up Python Virtual Environment
+### 5. Set Up Python Virtual Environment
 
 It's recommended to use a virtual environment to isolate dependencies:
 
@@ -74,7 +83,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 5. Install Python Dependencies
+### 6. Install Python Dependencies
 
 ```bash
 pip3 install -e .
@@ -82,7 +91,7 @@ pip3 install -e .
 
 **Note:** Make sure to activate the virtual environment (`source venv/bin/activate`) before running the application or installing the service.
 
-### 6. Configure Your Stock Tickers
+### 7. Configure Your Stock Tickers
 
 Edit `config.ini` to add your desired stock symbols:
 
