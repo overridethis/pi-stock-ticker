@@ -27,7 +27,7 @@ if [ ! -f "$VENV_PYTHON" ]; then
     echo "Installing project dependencies..."
 
     "$PROJECT_DIR/venv/bin/pip3" install --upgrade pip
-    "$PROJECT_DIR/venv/bin/pip3" install -e "$PROJECT_DIR"
+    "$PROJECT_DIR/venv/bin/pip3" install --prefer-binary -e "$PROJECT_DIR"
 
     if [ $? -ne 0 ]; then
         echo "ERROR: Failed to install dependencies"
