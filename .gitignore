@@ -148,3 +148,8 @@ graph.png
 stocks.txt
 config.ini.bak
 *.bak
+
+# Build artifacts
+*.egg-info/
+dist/
+build/

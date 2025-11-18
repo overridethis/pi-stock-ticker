@@ -10,9 +10,10 @@ dependencies = [
     "pytz",
     "pandas",
 ]
-[tool.pip]
-options = "--prefer-binary"
 
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["main", "stock_ticker", "stock_data", "config"]
