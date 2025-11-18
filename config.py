@@ -26,3 +26,13 @@ class Config:
         """
         symbols = config['tickers']['symbols']
         return [ticker.strip() for ticker in symbols.split(',')]
+
+    @staticmethod
+    def get_update_frequency():
+        """
+        Get the display update frequency in seconds.
+
+        Returns:
+            int: Update frequency in seconds (default: 30)
+        """
+        return config.getint('display', 'update_frequency_seconds', fallback=30)

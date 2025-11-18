@@ -156,12 +156,42 @@ sudo systemctl disable pi-stock-ticker
 sudo systemctl enable pi-stock-ticker
 ```
 
+### Uninstall the Service
+
+To remove the systemd service (but keep your project files):
+
+```bash
+chmod +x uninstall_service.sh
+./uninstall_service.sh
+```
+
+This will:
+- Stop the running service
+- Disable it from auto-start on boot
+- Remove the service file from systemd
+- Keep your project files and virtual environment intact
+
+You can reinstall the service at any time by running `./install_service.sh` again.
+
 ## Configuration
 
 ### config.ini
 
 - **[epaper] lib_path**: Path to the Waveshare e-Paper library
 - **[tickers] symbols**: Comma-separated list of stock ticker symbols to display
+- **[display] update_frequency_seconds**: How often to update the display (in seconds, default: 30)
+
+Example configuration:
+```ini
+[epaper]
+lib_path=/home/pi/e-Paper/RaspberryPi_JetsonNano/python/lib/
+
+[tickers]
+symbols=AAPL,GOOGL,MSFT,TSLA
+
+[display]
+update_frequency_seconds=30
+```
 
 ### Trading Hours
 
@@ -171,7 +201,7 @@ The application automatically detects trading hours based on the ticker:
 
 ### Update Frequency
 
-By default, the display updates every 30 seconds and cycles through all configured tickers. You can modify this in `stock_ticker.py` by changing the `time.sleep(30)` value on line 158.
+The display update frequency is configured in `config.ini` using the `update_frequency_seconds` setting. By default, the display updates every 30 seconds and cycles through all configured tickers. You can adjust this value to update more or less frequently based on your needs.
 
 ## Troubleshooting
 

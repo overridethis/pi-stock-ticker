@@ -191,7 +191,7 @@ class StockTicker:
                 logging.error(f"Error fetching/displaying {ticker}: {e}")
 
             self._ticker_index = (self._ticker_index + 1) % len(self._tickers)
-            time.sleep(30)  # 5 minutes
+            time.sleep(Config.get_update_frequency())
 
     def cleanup(self):
         """
