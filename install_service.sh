@@ -24,20 +24,22 @@ if [ ! -f "$VENV_PYTHON" ]; then
     fi
 
     echo "Virtual environment created successfully."
-    echo "Installing project dependencies..."
-
-    "$PROJECT_DIR/venv/bin/pip3" install --upgrade pip
-    "$PROJECT_DIR/venv/bin/pip3" install --prefer-binary -e "$PROJECT_DIR"
-
-    if [ $? -ne 0 ]; then
-        echo "ERROR: Failed to install dependencies"
-        exit 1
-    fi
-
-    echo "Dependencies installed successfully."
 else
     echo "Virtual environment found at $PROJECT_DIR/venv"
 fi
+
+# Always install/update dependencies
+echo "Installing project dependencies..."
+
+"$PROJECT_DIR/venv/bin/pip3" install --upgrade pip
+"$PROJECT_DIR/venv/bin/pip3" install --prefer-binary -e "$PROJECT_DIR"
+
+if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to install dependencies"
+    exit 1
+fi
+
+echo "Dependencies installed successfully."
 
 # Create systemd service file
 SERVICE_FILE="/etc/systemd/system/pi-stock-ticker.service"
