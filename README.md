@@ -70,7 +70,7 @@ sudo python3 setup.py install
 
 ```bash
 cd ~
-git clone <your-repo-url> pi-stock-ticker
+git clone https://github.com/overridethis/pi-stock-ticker pi-stock-ticker
 cd pi-stock-ticker
 ```
 
@@ -118,7 +118,7 @@ python3 main.py
 
 Press `Ctrl+C` to stop.
 
-### Install as a Service
+### Install as a Service (Recommended)
 
 To have the stock ticker start automatically on boot:
 
