@@ -6,40 +6,12 @@ set -e
 
 echo "Installing pi-stock-ticker as a systemd service..."
 
-# Get the current directory (project root)
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 USER=$(whoami)
-VENV_PYTHON="$PROJECT_DIR/venv/bin/python3"
 
-# Check if virtual environment exists, create if not
-if [ ! -f "$VENV_PYTHON" ]; then
-    echo "Virtual environment not found. Creating one now..."
-    python3 -m venv "$PROJECT_DIR/venv"
-
-    if [ $? -ne 0 ]; then
-        echo "ERROR: Failed to create virtual environment"
-        echo "Make sure python3-venv is installed:"
-        echo "  sudo apt-get install python3-venv"
-        exit 1
-    fi
-
-    echo "Virtual environment created successfully."
-else
-    echo "Virtual environment found at $PROJECT_DIR/venv"
-fi
-
-# Always install/update dependencies
-echo "Installing project dependencies..."
-
-"$PROJECT_DIR/venv/bin/pip3" install --upgrade pip
-"$PROJECT_DIR/venv/bin/pip3" install --prefer-binary -e "$PROJECT_DIR"
-
-if [ $? -ne 0 ]; then
-    echo "ERROR: Failed to install dependencies"
-    exit 1
-fi
-
-echo "Dependencies installed successfully."
+# Bootstrap virtual environment and dependencies.
+# Sets PROJECT_DIR and VENV_PYTHON.
+# shellcheck source=setup_venv.sh
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/setup_venv.sh"
 
 # Create systemd service file
 SERVICE_FILE="/etc/systemd/system/pi-stock-ticker.service"
