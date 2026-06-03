@@ -34,6 +34,9 @@ pi-stock-ticker/
 ├── config.ini           # Configuration file (tickers, settings)
 ├── pyproject.toml       # Python project dependencies
 ├── install_service.sh   # Service installation script
+├── clear_screen.sh      # Clears the e-Paper display
+├── clear_screen.py      # Standalone display-clear script (called by clear_screen.sh)
+├── setup_venv.sh        # Shared venv bootstrap sourced by the shell scripts
 └── README.md            # This file
 ```
 
@@ -172,6 +175,26 @@ This will:
 - Keep your project files and virtual environment intact
 
 You can reinstall the service at any time by running `./install_service.sh` again.
+
+## Clearing the Display
+
+E-Paper displays retain the last drawn image even after power off. To wipe the screen (for example, before unmounting the device or after changing tickers), run:
+
+```bash
+chmod +x clear_screen.sh
+./clear_screen.sh
+```
+
+The script creates the virtual environment if it doesn't exist, then runs `clear_screen.py` to initialize the display, clear it, and put it back to sleep.
+
+> **Warning:** If the systemd service is installed and running, stop it first — otherwise the ticker will redraw the screen seconds after it's cleared, and both processes will contend for the SPI bus.
+>
+> ```bash
+> sudo systemctl stop pi-stock-ticker
+> ./clear_screen.sh
+> ```
+>
+> Restart the service afterwards with `sudo systemctl start pi-stock-ticker` if you want it to resume.
 
 ## Configuration
 
