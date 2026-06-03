@@ -204,6 +204,19 @@ class StockTicker:
         self._epd.sleep()
         epd3in52.epdconfig.module_exit(cleanup=True)
 
+    def clear_screen(self):
+        """
+        Initialize the display, clear it, and shut it down.
+
+        Self-contained: safe to invoke without having called run() first.
+        Useful for wiping the screen between runs or before unmounting the device.
+        """
+        logging.info("Clearing e-Paper display...")
+        self._epd.init()
+        self._epd.Clear()
+        self._epd.sleep()
+        epd3in52.epdconfig.module_exit(cleanup=True)
+
 
 # -------------------------------------
 # Main
